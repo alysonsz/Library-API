@@ -1,0 +1,29 @@
+GET http://localhost:8080/books
+Accept: application/json
+
+POST http://localhost:8080/books
+Content-Type: application/json
+
+{
+
+    "title": "BookTest",
+    "author": "Author BookTest",
+    "genre": "Drama of the Book"
+
+}
+
+GET http://localhost:8080/books/1
+Accept: application/json
+
+PUT http://localhost:8080/books/1
+Accept: application/json
+
+{
+
+    "title": "UpdateTest",
+    "author": "Author UpdateTest",
+    "genre": "Drama of the UpdateBook
+
+}
+
+DELETE http://localhost:8080/books/1

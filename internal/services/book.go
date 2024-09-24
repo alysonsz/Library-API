@@ -15,6 +15,12 @@ type BookService struct {
 	database *sql.DB
 }
 
+func NewBookService(database *sql.DB) *BookService {
+
+	return &BookService{database: database}
+
+}
+
 func (Service *BookService) CreateBook(book *Book) error {
 
 	query := "Insert into books (title, author, genre, pages, publicationyear) values (?, ?, ?, ?, ?)"
@@ -46,6 +52,7 @@ func (Service *BookService) GetBooks() ([]Book, error) {
 	}
 	var books []Book
 	for rows.Next() {
+
 		var book Book
 		error := rows.Scan(&book.ID, &book.Title, &book.Author, &book.Genre, &book.Pages, &book.publicationYear)
 		if error != nil {
@@ -54,6 +61,7 @@ func (Service *BookService) GetBooks() ([]Book, error) {
 
 		}
 		books = append(books, book)
+
 	}
 	return books, nil
 
