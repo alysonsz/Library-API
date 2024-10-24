@@ -3,6 +3,8 @@ package main
 import (
 	"database/sql"
 	"net/http"
+	"os"
+	"project-go/internal/cli"
 	"project-go/internal/services"
 	"project-go/internal/web"
 
@@ -21,6 +23,12 @@ func main() {
 
 	BookService := services.NewBookService(database)
 	BookHandlers := web.NewBookHandlers(BookService)
+
+	if len(os.Args) > 1 && (os.Args[1] == "simulate" || os.Args[1] == "search") {
+		bookCLI := cli.NewBookCLI(BookService)
+		bookCLI.Run()
+		return
+	}
 
 	router := http.NewServeMux()
 	router.HandleFunc("GET /books", BookHandlers.GetBooks)

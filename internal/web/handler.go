@@ -69,7 +69,7 @@ func (Handler *BookHandlers) GetBookByID(writer http.ResponseWriter, request *ht
 		return
 
 	}
-	if error == nil {
+	if books == nil {
 
 		http.Error(writer, "book not found", http.StatusBadRequest)
 		return
@@ -86,32 +86,31 @@ func (Handler *BookHandlers) UpdateBook(writer http.ResponseWriter, request *htt
 	if error != nil {
 
 		http.Error(writer, "invalid book ID", http.StatusBadRequest)
+		return
 
 	}
 
+	var books services.Book
+	error = json.NewDecoder(request.Body).Decode(&books)
 	if error != nil {
 
-		var books services.Book
-		error := json.NewDecoder(request.Body).Decode(&books)
-		if error != nil {
-
-			http.Error(writer, "invalid request", http.StatusBadRequest)
-			return
-
-		}
-		books.ID = id
-		error = Handler.services.UpdateBook(&books)
-		if error != nil {
-
-			http.Error(writer, "failed to update book", http.StatusBadRequest)
-			return
-
-		}
-		writer.WriteHeader(http.StatusOK)
-		json.NewEncoder(writer).Encode(books)
+		http.Error(writer, "invalid request", http.StatusBadRequest)
+		return
 
 	}
+	books.ID = id
+	error = Handler.services.UpdateBook(&books)
+	if error != nil {
+
+		http.Error(writer, "failed to update book", http.StatusBadRequest)
+		return
+
+	}
+	writer.WriteHeader(http.StatusOK)
+	json.NewEncoder(writer).Encode(books)
+
 }
+
 func (Handler *BookHandlers) DeleteBook(writer http.ResponseWriter, request *http.Request) {
 
 	idString := request.PathValue("id")

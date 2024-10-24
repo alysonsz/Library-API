@@ -6,9 +6,11 @@ Content-Type: application/json
 
 {
 
-    "title": "BookTest",
-    "author": "Author BookTest",
-    "genre": "Drama of the Book"
+    "title": "BookTest3",
+    "author": "Author BookTest3",
+    "genre": "Drama of the Book3",
+    "pages": 2530,
+    "publicationyear": 2013
 
 }
 
@@ -16,14 +18,15 @@ GET http://localhost:8080/books/1
 Accept: application/json
 
 PUT http://localhost:8080/books/1
-Accept: application/json
+Content-Type: application/json
 
 {
 
-    "title": "UpdateTest",
-    "author": "Author UpdateTest",
-    "genre": "Drama of the UpdateBook
+    "title": "Book 2.0",
+    "author": "Author Book 2.0",
+    "genre": "Drama of the PutBook 2.0",
+    "pages": 20,
+    "publicationyear": 2020
 
 }
-
-DELETE http://localhost:8080/books/1
+DELETE http://localhost:8080/books/2
