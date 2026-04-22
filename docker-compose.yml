@@ -1,0 +1,30 @@
+version: "3.8"
+
+services:
+  api:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      - PORT=8080
+      - DB_DRIVER=postgres
+      - DB_URL=postgres://library:library@db:5432/library?sslmode=disable
+      - LOG_LEVEL=info
+    depends_on:
+      - db
+    restart: unless-stopped
+
+  db:
+    image: postgres:16-alpine
+    environment:
+      - POSTGRES_USER=library
+      - POSTGRES_PASSWORD=library
+      - POSTGRES_DB=library
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
