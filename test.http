@@ -1,32 +1,111 @@
-GET http://localhost:8080/books
+### Books
+
+### List Books (paginated, filtered)
+GET http://localhost:8080/books?page=1&pageSize=10&genre=Fiction
 Accept: application/json
 
+### Create Book
 POST http://localhost:8080/books
 Content-Type: application/json
 
 {
-
     "title": "BookTest3",
     "author": "Author BookTest3",
-    "genre": "Drama of the Book3",
+    "authorId": 1,
+    "genre": "Drama",
     "pages": 2530,
-    "publicationyear": 2013
-
+    "publicationYear": 2013
 }
 
+### Get Book by ID
 GET http://localhost:8080/books/1
 Accept: application/json
 
+### Update Book
 PUT http://localhost:8080/books/1
 Content-Type: application/json
 
 {
-
     "title": "Book 2.0",
     "author": "Author Book 2.0",
-    "genre": "Drama of the PutBook 2.0",
+    "authorId": 1,
+    "genre": "Drama",
     "pages": 20,
-    "publicationyear": 2020
-
+    "publicationYear": 2020
 }
+
+### Delete Book
 DELETE http://localhost:8080/books/2
+
+###
+### Authors
+
+### List Authors
+GET http://localhost:8080/authors
+Accept: application/json
+
+### Create Author
+POST http://localhost:8080/authors
+Content-Type: application/json
+
+{
+    "name": "George Orwell",
+    "bio": "English novelist",
+    "birthYear": 1903
+}
+
+### Get Author by ID
+GET http://localhost:8080/authors/1
+Accept: application/json
+
+### Update Author
+PUT http://localhost:8080/authors/1
+Content-Type: application/json
+
+{
+    "name": "George Orwell",
+    "bio": "Updated bio",
+    "birthYear": 1903
+}
+
+### Delete Author
+DELETE http://localhost:8080/authors/1
+
+### Get Books by Author
+GET http://localhost:8080/authors/1/books
+Accept: application/json
+
+###
+### Health
+
+### Check Health
+GET http://localhost:8080/health
+Accept: application/json
+
+###
+### Loans
+
+### List Loans
+GET http://localhost:8080/loans
+Accept: application/json
+
+### Create Loan
+POST http://localhost:8080/loans
+Content-Type: application/json
+
+{
+    "bookId": 1,
+    "borrowerName": "Alice",
+    "dueDate": "2026-12-31T23:59:59Z"
+}
+
+### Get Loan by ID
+GET http://localhost:8080/loans/1
+Accept: application/json
+
+### Return Loan
+POST http://localhost:8080/loans/1/return
+
+### List Overdue Loans
+GET http://localhost:8080/loans/overdue
+Accept: application/json
